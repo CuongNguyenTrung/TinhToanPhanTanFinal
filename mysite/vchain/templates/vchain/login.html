@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Log in</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css.css' %}" type="text/css">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center font-weight-bold">Log In</h5>
+            <form class="form-signin" method="POST" action="login">
+                 {% csrf_token %}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+                {% endif %}
+              <div class="form-label-group">
+                <input type="text" id="username" class="form-control" placeholder="Username" required autofocus name="username">
+                <label for="username">Username</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="password" class="form-control" placeholder="Password" required name="password">
+                <label for="password">Password</label>
+              </div>
+                <div class="form-label-group">
+                <input type="password" id="username-v" class="form-control" placeholder="V-username" required name="v-n">
+                <label for="username-v">V-Username</label>
+              </div>
+													<div class="form-label-group">
+                <input type="password" id="password-v" class="form-control" placeholder="Password" required name="v-p">
+                <label for="password-v">V-Password</label>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log in</button>
+
+            </form>
+              <hr>
+              <div class="text-center">
+                  <a href="index" >Index</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

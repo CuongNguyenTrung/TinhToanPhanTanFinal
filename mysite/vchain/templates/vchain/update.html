@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    body{
+       background-color: #f4f4f4;
+    }
+    /* Header */
+    #header{
+        background-color: #ffba00 !important;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        top: 0;
+    }
+
+    #header li{
+        margin: 3px;
+    }
+    #header a:hover{
+        color: white;
+    }
+    label, span.label{
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    </style>
+    <title>Cập nhật thông tin</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg pt-4 pb-4 navbar-light" style="background-color: #155592;">
+            <div class="container-fluid">
+                {% load static %}
+
+                <a class="navbar-brand font-weight-bold" href="create" style="color:#E7F5FF;">
+                    <img src="{% static 'images/icon.png' %}" style="max-width: 40px;" alt="">
+                    B-Certicicate</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                            <li class="nav-item dropdown">
+                            <a style="color:#E7F5FF;" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Admin <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="color:#E7F5FF;">
+                                <a class="dropdown-item" href="index">Tìm kiếm</a>
+                                <a class="dropdown-item" href="login" target="_blank">Đăng xuất</a>
+                            </div>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+<div  class="container-fluid text-center pt-4"
+      style="padding-bottom: 20px;background-color: #e6fcf5; padding-bottom: 190px;">
+    <div class="row ">
+        <div class="col-6 mt-3">
+            {% load static %}
+            <img src="{% static 'images/certificate-flat.png' %}" alt="">
+        </div>
+        <div class="col-5 text-left">
+            <div class="mb-3">
+            <ul class="nav nav-tabs nav-justified">
+              <li class="nav-item">
+                <a class="nav-link" href="create">Tạo mới</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="update">Cập nhật</a>
+              </li>
+            </ul>
+            </div>
+            <div>
+            <form action="update" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="">Id</label>
+                    <input type="text" name="id" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Tên bằng</label>
+                    <input type="text" name="name_cert" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Ngày cấp</label>
+                    <input type="text" name="date_provide" class="form-control" required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="">Ảnh</label>
+                    <input type="file" name="image" class="form-control" required>
+                </div>
+                 <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-info">Cập nhật</button>
+                </div>
+                 <div >
+                {% if success %}
+            <div class="row text-center pt-2">
+                <div class="col-12">
+                    <div class="alert alert-primary" role="alert">
+                        Cập nhật dữ liệu thành công
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if error %}
+            <div class="row text-center pt-2">
+                <div class="col-12">
+                    <div class="alert alert-primary" role="alert">
+                        Cập nhật thông tin thất bại
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+                 </div>
+            </form>
+
+        </div>
+            <div style="height: 1px; background-color:#dae0e5; margin-bottom: 100px; margin-top: 70px;"></div>
+            <div class="mt-3">
+                <label for="" style="font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;">Nhập file</label>
+                <form action="update" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="update" value="all">
+                    <input type="file" name="file_info" class="form-control mb-3">
+                    <button type="submit" class="btn btn-info mt-2">Cập nhật</button>
+
+                </form>
+            <div class="col-11 ml-4 mt-3">
+                    {% if error_all %}
+                        <div class="row text-center pt-2 ml-3">
+                            <div>
+                                <div class="alert alert-danger" role="alert">
+                                    Dữ liệu tải lên thất bại
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if update_all %}
+                    <div class="row text-center pt-2 ml-4" style="margin-left: 10px">
+                            <div>
+                                <div class="alert alert-primary" role="alert">
+                                    Cập nhật thành công, tổng cộng {{ count }} bản ghi
+                                    được cập nhật
+                                </div>
+                            </div>
+                    </div>
+                    {% endif %}
+                        </div>
+            </div>
+            </div>
+    </div>
+
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

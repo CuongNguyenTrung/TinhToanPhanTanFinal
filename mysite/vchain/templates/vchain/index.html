@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .title{
+            margin-top: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .bl{
+            margin: 2px 0px 2px 0px;
+            padding: 10px 0px 10px 0px;
+            border-bottom: 1px solid #c7f0db;
+            <!--#c7f0db--#d6e5fa>
+        }
+        .title1{
+            color: #495057;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg pt-4 pb-4 navbar-light" style="background-color: #155592;">
+        <a class="navbar-brand font-weight-bold" href="index" style="color:#E7F5FF;">
+            {% load static %}
+            <img src="{% static 'images/icon.png' %}" style="max-width: 40px;" alt="">
+            B-Certicicate</a>
+
+    </nav>
+        <div class="container-fluid text-center pt-3" style="background-color: #e6fcf5;">
+        <form action="index" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-5 offset-3">
+                    <input type="text" name="id" class="form-control" placeholder="Nhập id sinh viên" required>
+                </div>
+                    <button type="submit" class="btn btn-info">Xác minh</button>
+            </div>
+        </form>
+        {% if errors %}
+        <div class="row text-center pt-2">
+            <div class="col-5 offset-3">
+                <div class="alert alert-danger" role="alert">
+                    {{ errors }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if students %}
+        <div class="row text-center pt-2">
+            <div class="col-5 offset-3">
+                <div class="alert alert-primary" role="alert">
+                    Tìm kiếm thành công
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <hr>
+    </div>
+    {% if students %}
+
+    <div class="container-fluid pb-3" style="background-color: #F1FFF7">
+        <div class="row mb-5 pt-4 d-flex align-items-baseline">
+            <div class="col-4 offset-4">
+                <p class="title1 text-center" style="border-bottom: 1px solid #c7f0db;">Thông tin về sinh viên</p>
+
+            </div>
+
+            <div class="col-2 offset-2">
+                {% load static %}
+                <a href="{% static 'files/sinhvien.txt' %}" class="btn btn-success" download="sinhvien.txt">Tải dữ liệu sinh viên</a>
+            </div>
+        </div>
+        {% for student in students %}
+        <div class="row pb-5 pt-3">
+            <div class="col-3 offset-1">
+                <div class="d-flex align-items-baseline bl">
+                    <div>
+                         {% load static %}
+                        <img src="{% static 'images/verify.png' %}" alt="error"
+                        style="max-width: 30px;">
+                    </div>
+                    <div>
+                        <div>
+                            <span class="title">Đã xác thực</span><br>
+                            <span class="data">Dữ liệu lưu trữ trên mạng <strong>V-Chain</strong></span>
+
+                        </div>
+                    </div>
+                </div>
+                    <div class="bl">
+                        <div>
+                            <span class="title">Ngày cấp</span><br>
+                            <span class="data">{{ student.date_provide }}</span>
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <div>
+                            <span class="title">Trường</span><br>
+                            <span class="data">Đại học Bách Khoa Hà Nội</span>
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <div>
+                            <span class="title">Khóa của trường</span><br>
+                            <span class="data" style="word-wrap: break-word;">
+                                02a02fe0f2e2a4f39c42d7d03f889159dfc991ad8ab949d9c4bf41a0da20fc6c3f</span>
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <div>
+                            <span class="title">Sinh viên</span><br>
+                            <span class="data">{{ name_student }}</span>
+                        </div>
+                    </div>
+                    <div class="bl">
+                        <div>
+                            <span class="title">Mã số sinh viên</span><br>
+                            <span class="data">{{ mssv }}</span>
+                        </div>
+                    </div>
+
+                    <div class="bl">
+                        <div>
+                            <span class="title">Transaction id</span><br>
+                            <span class="data" style="word-wrap: break-word;">
+                                <a href="https://live.v-chain.vn/#/transactions/{{ student.transactionIdBlockchain}}" target="_blank">
+                                {{ student.transactionIdBlockchain}}
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-7 text-left">
+                <!--<img src="https://v-chain.vn/ipfs/gateway/{{ student.image_cid }}" width="500px" height="500px" alt="not working">-->
+                <div class="mb-3">
+                    <span class="title">{{ student.name_certification }}</span>
+                </div>
+                {% load static %}
+                <img src="https://v-chain.vn/ipfs/gateway/{{ student.image_cid  }}" alt="error" class="img-thumbnail img-fluid"
+                style="max-height: 600px;">
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+</body>
+</html>

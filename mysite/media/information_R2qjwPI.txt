@@ -1,0 +1,2 @@
+{"name_student": "Nguyễn Văn Hùng", "mssv": "20012222", "name_certification": "Bằng Đại Học", "date_provide": "20/2/2013", "image" : "cert2.PNG"}
+{"name_student": "Nguyễn Trung Cương", "mssv": "20012223", "name_certification": "Bằng Đại Học", "date_provide": "20/2/2013", "image" : "cert2.PNG"}
